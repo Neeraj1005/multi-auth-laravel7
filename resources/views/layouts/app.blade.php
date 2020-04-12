@@ -54,6 +54,7 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
+                                @if(auth()->user()->role->nickname == 'user')
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -65,6 +66,19 @@
                                         @csrf
                                     </form>
                                 </div>
+                                @else
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                                @endif
                             </li>
                         @endguest
                     </ul>
