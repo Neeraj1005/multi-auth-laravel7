@@ -51,11 +51,14 @@ class MediaController extends Controller
             $size = $request->filename->getSize();
 
             $upload = $request->filename->storeAs('avatar',$avatar,'public');
-            // $imagesize = getimagesize("storage/".$upload);
-            // $width = $imagesize[0];
-            // $height = $imagesize[1];
+            /* First method to store image with widht and height
+            $imagesize = getimagesize("storage/".$upload);
+            $width = $imagesize[0];
+            $height = $imagesize[1];
+            */
+            //Below is second method to store image with width and height
             list($width, $height) = getimagesize($request->file('filename'));
-
+            // list($width, $height) = getimagesize("storage/".$upload);
 
             // dd([$width,$height]);
         }
