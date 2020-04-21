@@ -44,3 +44,5 @@ Route::prefix('user')->namespace('User')->group(function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/media','MediaController');
