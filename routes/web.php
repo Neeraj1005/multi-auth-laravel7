@@ -33,13 +33,18 @@ Route::prefix('admin')->namespace('Auth\Admin')->group(function(){
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function(){
-    Route::get('dashboard','adminDashboardController@index');
+    Route::get('dashboard','adminDashboardController@index')->name('admin.dashboard');
+    Route::put('block/{user}/set','adminDashboardController@block')->name('block.update');
 });
 
-Route::prefix('user')->namespace('User')->group(function(){
-    Route::get('dashboard','userDashboardController@index');
-});
 
+Route::group(['middleware' => ['active_user']], function () {
+    Route::prefix('user')->namespace('User')->group(function(){
+        Route::get('dashboard','userDashboardController@index');
+    });
+
+
+});
 
 Auth::routes();
 

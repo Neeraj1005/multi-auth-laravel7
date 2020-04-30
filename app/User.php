@@ -38,6 +38,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = [
+        'blocked_at',
+    ];
+
     public function role()
     {
         return $this->belongsTo('App\Role');
