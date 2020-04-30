@@ -171,7 +171,7 @@ trait ResetsPasswords
      */
     public function broker()
     {
-        return Password::broker('users');
+        return Password::broker();
     }
 
     /**
@@ -181,6 +181,6 @@ trait ResetsPasswords
      */
     protected function guard()
     {
-        return Auth::guard('user');
+        return Auth::guard();
     }
 }

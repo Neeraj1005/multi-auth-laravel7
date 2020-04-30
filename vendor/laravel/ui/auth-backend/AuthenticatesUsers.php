@@ -2,7 +2,6 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +14,7 @@ trait AuthenticatesUsers
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function showLoginForm()
     {
@@ -33,12 +32,6 @@ trait AuthenticatesUsers
     public function login(Request $request)
     {
         $this->validateLogin($request);
-
-        $user = User::where('email', request()->email)->first();
-
-        if ($user AND $user->role->nickname !== 'user') {
-            return redirect('/login')->with(['message'=>'Sorry! Invalid Credentials']);
-        }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -180,7 +173,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect('/login');
+            : redirect('/');
     }
 
     /**
@@ -201,6 +194,6 @@ trait AuthenticatesUsers
      */
     protected function guard()
     {
-        return Auth::guard('user');
+        return Auth::guard();
     }
 }
